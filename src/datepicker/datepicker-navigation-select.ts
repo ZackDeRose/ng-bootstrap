@@ -7,7 +7,7 @@ import {NgbCalendar} from './ngb-calendar';
 @Component({
   selector: 'ngb-datepicker-navigation-select',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: template: "\n    <select\n      [disabled]=\"disabled\"\n      class=\"form-control dt-month\"\n      [value]=\"date?.month\"\n      (change)=\"changeMonth($event.target.value)\"\n      tabindex=\"-1\">\n        <option *ngFor=\"let m of months\" [value]=\"m\">{{ i18n.getMonthShortName(m) }}</option>\n    </select><select\n      [disabled]=\"disabled\"\n      class=\"form-control dt-year\"\n      [value]=\"date?.year\"\n      (change)=\"changeYear($event.target.value)\"\n      tabindex=\"-1\">\n        <option *ngFor=\"let y of years\" [value]=\"y\">{{ y }}</option>\n    </select> \n  "
+  template: "\n    <select\n      [disabled]=\"disabled\"\n      class=\"form-control dt-month\"\n      [value]=\"date?.month\"\n      (change)=\"changeMonth($event.target.value)\"\n      tabindex=\"-1\">\n        <option *ngFor=\"let m of months\" [value]=\"m\">{{ i18n.getMonthShortName(m) }}</option>\n    </select><select\n      [disabled]=\"disabled\"\n      class=\"form-control dt-year\"\n      [value]=\"date?.year\"\n      (change)=\"changeYear($event.target.value)\"\n      tabindex=\"-1\">\n        <option *ngFor=\"let y of years\" [value]=\"y\">{{ y }}</option>\n    </select> \n  "
 })
 export class NgbDatepickerNavigationSelect implements OnChanges {
   months: number[];
