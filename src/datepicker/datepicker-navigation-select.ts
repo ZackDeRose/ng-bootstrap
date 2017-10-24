@@ -7,34 +7,7 @@ import {NgbCalendar} from './ngb-calendar';
 @Component({
   selector: 'ngb-datepicker-navigation-select',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  styles: [`
-    select {
-      /* to align with btn-sm */
-      padding: 0.25rem 0.5rem;
-      font-size: 0.875rem;      
-      line-height: 1.25;
-      /* to cancel the custom height set by custom-select */
-      height: inherit;
-      width: 50%;
-    }
-  `],
-  template: `
-    <select
-      [disabled]="disabled"
-      class="custom-select d-inline-block"
-      [value]="date?.month"
-      (change)="changeMonth($event.target.value)"
-      tabindex="-1">
-        <option *ngFor="let m of months" [value]="m">{{ i18n.getMonthShortName(m) }}</option>
-    </select><select
-      [disabled]="disabled"
-      class="custom-select d-inline-block"
-      [value]="date?.year"
-      (change)="changeYear($event.target.value)"
-      tabindex="-1">
-        <option *ngFor="let y of years" [value]="y">{{ y }}</option>
-    </select> 
-  `
+  template: template: "\n    <select\n      [disabled]=\"disabled\"\n      class=\"form-control dt-month\"\n      [value]=\"date?.month\"\n      (change)=\"changeMonth($event.target.value)\"\n      tabindex=\"-1\">\n        <option *ngFor=\"let m of months\" [value]=\"m\">{{ i18n.getMonthShortName(m) }}</option>\n    </select><select\n      [disabled]=\"disabled\"\n      class=\"form-control dt-year\"\n      [value]=\"date?.year\"\n      (change)=\"changeYear($event.target.value)\"\n      tabindex=\"-1\">\n        <option *ngFor=\"let y of years\" [value]=\"y\">{{ y }}</option>\n    </select> \n  "
 })
 export class NgbDatepickerNavigationSelect implements OnChanges {
   months: number[];

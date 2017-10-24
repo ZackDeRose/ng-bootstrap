@@ -8,59 +8,7 @@ import {NgbCalendar} from './ngb-calendar';
   selector: 'ngb-datepicker-navigation',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {'class': 'd-flex justify-content-between', '[class.collapsed]': '!showSelect'},
-  styles: [`
-    :host {
-      height: 2rem;
-      line-height: 1.85rem;
-    }
-    :host.collapsed {
-      margin-bottom: -2rem;        
-    }
-    .ngb-dp-navigation-chevron::before {
-      border-style: solid;
-      border-width: 0.2em 0.2em 0 0;
-      content: '';
-      display: inline-block;
-      height: 0.75em;
-      transform: rotate(-135deg);
-      -webkit-transform: rotate(-135deg);
-      -ms-transform: rotate(-135deg);
-      width: 0.75em;
-      margin: 0 0 0 0.5rem;
-    }    
-    .ngb-dp-navigation-chevron.right:before {
-      -webkit-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-      transform: rotate(45deg);
-      margin: 0 0.5rem 0 0;
-    }
-    .btn-link {
-      cursor: pointer;
-      border: 0;
-      outline: 0;
-    }
-    .btn-link[disabled] {
-      cursor: not-allowed;
-      opacity: .65;
-    }    
-  `],
-  template: `
-    <button type="button" class="btn-link" (click)="!!doNavigate(navigation.PREV)" [disabled]="prevDisabled()" tabindex="-1">
-      <span class="ngb-dp-navigation-chevron"></span>    
-    </button>
-    
-    <ngb-datepicker-navigation-select *ngIf="showSelect" class="d-block" [style.width.rem]="months * 9"
-      [date]="date"
-      [minDate]="minDate"
-      [maxDate]="maxDate"
-      [disabled] = "disabled"
-      (select)="selectDate($event)">
-    </ngb-datepicker-navigation-select>
-    
-    <button type="button" class="btn-link" (click)="!!doNavigate(navigation.NEXT)" [disabled]="nextDisabled()" tabindex="-1">
-      <span class="ngb-dp-navigation-chevron right"></span>
-    </button>
-  `
+  template: template: "\n    <button type=\"button\" class=\"btn btn-default pull-left\" (click)=\"!!doNavigate(navigation.PREV)\" [disabled]=\"prevDisabled()\" tabindex=\"-1\">\n      <i class=\"fa fa-chevron-left\"></i>    \n    </button>\n    \n    <ngb-datepicker-navigation-select *ngIf=\"showSelect\" class=\"d-block\" [style.width.rem]=\"months * 9\"\n      [date]=\"date\"\n      [minDate]=\"minDate\"\n      [maxDate]=\"maxDate\"\n      [disabled] = \"disabled\"\n      (select)=\"selectDate($event)\">\n    </ngb-datepicker-navigation-select>\n    \n    <button type=\"button\" class=\"btn btn-default pull-right\" (click)=\"!!doNavigate(navigation.NEXT)\" [disabled]=\"nextDisabled()\" tabindex=\"-1\">\n      <i class=\"fa fa-chevron-right\"></i>\n    </button>\n  "
 })
 export class NgbDatepickerNavigation {
   navigation = NavigationEvent;
