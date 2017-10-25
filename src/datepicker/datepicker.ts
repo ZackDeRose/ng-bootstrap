@@ -63,7 +63,54 @@ export interface NgbDatepickerNavigateEvent {
     '(focus)': 'showFocus(true)',
     '(keydown)': 'onKeyDown($event)'
   },
-  template: "\n    <ng-template #dt let-date=\"date\" let-currentMonth=\"currentMonth\" let-selected=\"selected\" let-disabled=\"disabled\" let-focused=\"focused\">\n      <div ngbDatepickerDayView\n        [date]=\"date\"\n        [currentMonth]=\"currentMonth\"\n        [selected]=\"selected\"\n        [disabled]=\"disabled\"\n        [focused]=\"focused\">\n      </div>\n    </ng-template>\n\n    <div class=\"ngb-dp-header bg-light pt-1 rounded-top\" >\n      <ngb-datepicker-navigation *ngIf=\"navigation !== 'none'\"\n        [date]=\"model.firstDate\"\n        [minDate]=\"model.minDate\"\n        [maxDate]=\"model.maxDate\"\n        [months]=\"model.months.length\"\n        [disabled]=\"model.disabled\"\n        [showWeekNumbers]=\"showWeekNumbers\"\n        [showSelect]=\"navigation === 'select'\"\n        (navigate)=\"onNavigateEvent($event)\"\n        (select)=\"onNavigateDateSelect($event)\">\n      </ngb-datepicker-navigation>\n    </div>\n\n    <div class=\"ngb-dp-months d-flex px-1 pb-1\">\n      <ng-template ngFor let-month [ngForOf]=\"model.months\" let-i=\"index\">\n        <div class=\"ngb-dp-month d-block ml-3\">\n          <div *ngIf=\"navigation !== 'select' || displayMonths > 1\" class=\"ngb-dp-month-name text-center\">\n            {{ i18n.getMonthFullName(month.number) }} {{ month.year }}\n          </div>\n          <ngb-datepicker-month-view\n            [month]=\"month\"\n            [dayTemplate]=\"dayTemplate || dt\"\n            [showWeekdays]=\"showWeekdays\"\n            [showWeekNumbers]=\"showWeekNumbers\"\n            [outsideDays]=\"(displayMonths === 1 ? outsideDays : 'hidden')\"\n            (select)=\"onDateSelect($event)\">\n          </ngb-datepicker-month-view>\n        </div>\n      </ng-template>\n    </div>\n  ",
+  template: `
+    <ng-template #dt
+                 let-date=\"date\"
+                 let-currentMonth=\"currentMonth\"
+                 let-selected=\"selected\"
+                 let-disabled=\"disabled\"
+                 let-focused=\"focused\">
+      <div ngbDatepickerDayView
+           [date]=\"date\"
+           [currentMonth]=\"currentMonth\"
+           [selected]=\"selected\"
+           [disabled]=\"disabled\"
+           [focused]=\"focused\">
+      </div>
+    </ng-template>
+    
+        <div class=\"ngb-dp-header bg-light pt-1 rounded-top\" >
+          <ngb-datepicker-navigation *ngIf=\"navigation !== 'none'\"
+                                     [date]=\"model.firstDate\"
+                                     [minDate]=\"model.minDate\"
+                                     [maxDate]=\"model.maxDate\"
+                                     [months]=\"model.months.length\"
+                                     [disabled]=\"model.disabled\"
+                                     [showWeekNumbers]=\"showWeekNumbers\"
+                                     [showSelect]=\"navigation === 'select'\"
+                                     (navigate)=\"onNavigateEvent($event)\"
+                                     (select)=\"onNavigateDateSelect($event)\">
+          </ngb-datepicker-navigation>
+        </div>
+        
+            <div class=\"ngb-dp-months d-flex px-1 pb-1\">
+              <ng-template ngFor let-month [ngForOf]=\"model.months\" let-i=\"index\">
+                <div class=\"ngb-dp-month d-block ml-3\">
+                  <div *ngIf=\"navigation !== 'select' || displayMonths > 1\" class=\"ngb-dp-month-name text-center\">
+                    {{ i18n.getMonthFullName(month.number) }} {{ month.year }}
+                  </div>
+                  <ngb-datepicker-month-view
+                    [month]=\"month\"
+                    [dayTemplate]=\"dayTemplate || dt\"
+                    [showWeekdays]=\"showWeekdays\"
+                    [showWeekNumbers]=\"showWeekNumbers\"
+                    [outsideDays]=\"(displayMonths === 1 ? outsideDays : 'hidden')\"
+                    (select)=\"onDateSelect($event)\">
+                  </ngb-datepicker-month-view>
+                </div>
+              </ng-template>
+            </div>
+  `,
   providers: [NGB_DATEPICKER_VALUE_ACCESSOR, NgbDatepickerService, NgbDatepickerKeyMapService]
 })
 export class NgbDatepicker implements OnDestroy,

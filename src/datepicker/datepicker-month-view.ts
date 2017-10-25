@@ -7,8 +7,40 @@ import {DayTemplateContext} from './datepicker-day-template-context';
 @Component({
   selector: 'ngb-datepicker-month-view',
   host: {'class': 'd-block'},
-  styles: ["\n    .ngb-dp-weekday, .ngb-dp-week-number {\n          }\n    .ngb-dp-day, .ngb-dp-weekday, .ngb-dp-week-number {\n          }\n    .ngb-dp-day {\n      cursor: pointer;\n    }\n    .ngb-dp-day.disabled, .ngb-dp-day.hidden {\n      cursor: default;\n    }\n  "],
-  template: "\n    <div *ngIf=\"showWeekdays\" class=\"ngb-dp-week d-flex\">\n      <div *ngIf=\"showWeekNumbers\" class=\"ngb-dp-weekday\"></div>\n      <div *ngFor=\"let w of month.weekdays\" class=\"ngb-dp-weekday\">\n        {{ i18n.getWeekdayShortName(w) }}\n      </div>\n    </div>\n    <ng-template ngFor let-week [ngForOf]=\"month.weeks\">\n      <div *ngIf=\"!isCollapsed(week)\" class=\"ngb-dp-week d-flex\">\n        <div *ngIf=\"showWeekNumbers\" class=\"ngb-dp-week-number text-muted\">{{ week.number }}</div>\n        <div *ngFor=\"let day of week.days\" (click)=\"doSelect(day)\" class=\"ngb-dp-day\" [class.disabled]=\"day.context.disabled\"\n         [class.hidden]=\"isHidden(day)\">\n          <ng-template [ngIf]=\"!isHidden(day)\">\n            <ng-template [ngTemplateOutlet]=\"dayTemplate\" [ngTemplateOutletContext]=\"day.context\"></ng-template>\n          </ng-template>\n        </div>\n      </div>\n    </ng-template>\n  "
+  styles: [`
+    .ngb-dp-weekday, .ngb-dp-week-number {
+    }
+    .ngb-dp-day, .ngb-dp-weekday, .ngb-dp-week-number {
+    }
+    .ngb-dp-day {
+      cursor: pointer;
+    }
+    .ngb-dp-day.disabled, .ngb-dp-day.hidden {
+      cursor: default;
+    }
+  `],
+  template: `
+    <div *ngIf=\"showWeekdays\" class=\"ngb-dp-week d-flex\">
+      <div *ngIf=\"showWeekNumbers\" class=\"ngb-dp-weekday\"></div>
+      <div *ngFor=\"let w of month.weekdays\" class=\"ngb-dp-weekday\">
+        {{ i18n.getWeekdayShortName(w) }}
+      </div>
+    </div>
+    <ng-template ngFor let-week [ngForOf]=\"month.weeks\">
+      <div *ngIf=\"!isCollapsed(week)\" class=\"ngb-dp-week d-flex\">
+        <div *ngIf=\"showWeekNumbers\" class=\"ngb-dp-week-number text-muted\">{{ week.number }}</div>
+        <div *ngFor=\"let day of week.days\"
+             (click)=\"doSelect(day)\"
+             class=\"ngb-dp-day\"
+             [class.disabled]=\"day.context.disabled\"
+             [class.hidden]=\"isHidden(day)\">
+          <ng-template [ngIf]=\"!isHidden(day)\">
+            <ng-template [ngTemplateOutlet]=\"dayTemplate\" [ngTemplateOutletContext]=\"day.context\"></ng-template>
+          </ng-template>
+        </div>
+      </div>
+    </ng-template>
+  `
 })
 export class NgbDatepickerMonthView {
   @Input() dayTemplate: TemplateRef<DayTemplateContext>;

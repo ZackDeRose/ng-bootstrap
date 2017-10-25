@@ -16,8 +16,176 @@ const NGB_TIMEPICKER_VALUE_ACCESSOR = {
  */
 @Component({
   selector: 'ngb-timepicker',
-  styles: ["\n    .ngb-tp {\n      display: flex;\n      align-items: center;\n    }\n\n    .ngb-tp-hour, .ngb-tp-minute, .ngb-tp-second, .ngb-tp-meridian {\n      display: block;\n      flex-direction: column;\n      align-items: center;\n      justify-content: space-around;\n    }\n\n    .ngb-tp-spacer {\n      width: 1em;\n      text-align: center;\n    }\n\n    .chevron::before {\n      border-style: solid;\n      border-width: 0.29em 0.29em 0 0;\n      content: '';\n      display: inline-block;\n      height: 0.69em;\n      left: 0.05em;\n      position: relative;\n      top: 0.15em;\n      transform: rotate(-45deg);\n      -webkit-transform: rotate(-45deg);\n      -ms-transform: rotate(-45deg);\n      vertical-align: middle;\n      width: 0.71em;\n    }\n\n    .chevron.bottom:before {\n      top: -.3em;\n      -webkit-transform: rotate(135deg);\n      -ms-transform: rotate(135deg);\n      transform: rotate(135deg);\n    }\n\n    .btn-link {\n      outline: 0;\n    }\n\n    .btn-link.disabled {\n      cursor: not-allowed;\n      opacity: .65;\n    }\n\n    input {\n      text-align: center;\n      display: inline-block;\n      width: auto;\n    }\n  "],
-  template: "<fieldset [disabled]=\"disabled\" [class.disabled]=\"disabled\">\n    <div class=\"ngb-tp\">\n    <div class=\"ngb-tp-hour\">\n    <input type=\"text\" class=\"form-control\" [ngClass]=\"setFormControlSize()\" maxlength=\"2\" size=\"2\" placeholder=\"HH\" [value]=\"formatHour(model?.hour)\" (change)=\"updateHour($event.target.value)\" [readonly]=\"readonlyInputs\" [disabled]=\"disabled\" aria-label=\"Hours\">\n    <div>\n    <button tabIndex=\"-1\" *ngIf=\"spinners\" type=\"button\" class=\"btn-link btn-inc\" [ngClass]=\"setButtonSize()\" (click)=\"changeHour(hourStep)\" [disabled]=\"disabled\" [class.disabled]=\"disabled\">\n    <span class=\"chevron\"></span>\n    </button>\n    <button tabIndex=\"-1\" *ngIf=\"spinners\" type=\"button\" class=\"btn-link btn-dec\" [ngClass]=\"setButtonSize()\" (click)=\"changeHour(-hourStep)\" [disabled]=\"disabled\" [class.disabled]=\"disabled\">\n    <span class=\"chevron bottom\"></span>\n    </button>\n    </div>\n    </div>\n    <div class=\"ngb-tp-spacer\">:</div>\n    <div class=\"ngb-tp-minute\">\n    <input type=\"text\" class=\"form-control\" [ngClass]=\"setFormControlSize()\" maxlength=\"2\" size=\"2\" placeholder=\"MM\" [value]=\"formatMinSec(model?.minute)\" (change)=\"updateMinute($event.target.value)\" [readonly]=\"readonlyInputs\" [disabled]=\"disabled\" aria-label=\"Minutes\">\n    <div>\n    <button tabIndex=\"-1\" *ngIf=\"spinners\" type=\"button\" class=\"btn-link btn-inc\" [ngClass]=\"setButtonSize()\" (click)=\"changeMinute(minuteStep)\" [disabled]=\"disabled\" [class.disabled]=\"disabled\">\n    <span class=\"chevron\"></span>\n    </button>\n    <button tabIndex=\"-1\" *ngIf=\"spinners\" type=\"button\" class=\"btn-link btn-dec\" [ngClass]=\"setButtonSize()\" (click)=\"changeMinute(-minuteStep)\" [disabled]=\"disabled\" [class.disabled]=\"disabled\">\n    <span class=\"chevron bottom\"></span>\n    </button>\n    </div>\n    </div>\n    <div *ngIf=\"seconds\" class=\"ngb-tp-spacer\">:</div>\n    <div *ngIf=\"seconds\" class=\"ngb-tp-second\">\n    <input type=\"text\" class=\"form-control\" [ngClass]=\"setFormControlSize()\" maxlength=\"2\" size=\"2\" placeholder=\"SS\" [value]=\"formatMinSec(model?.second)\" (change)=\"updateSecond($event.target.value)\" [readonly]=\"readonlyInputs\" [disabled]=\"disabled\" aria-label=\"Seconds\">\n    <button tabIndex=\"-1\" *ngIf=\"spinners\" type=\"button\" class=\"btn-link btn-inc\" [ngClass]=\"setButtonSize()\" (click)=\"changeSecond(secondStep)\" [disabled]=\"disabled\" [class.disabled]=\"disabled\">\n    <span class=\"chevron\"></span>\n    </button>\n    <button tabIndex=\"-1\" *ngIf=\"spinners\" type=\"button\" class=\"btn-link btn-dec\" [ngClass]=\"setButtonSize()\" (click)=\"changeSecond(-secondStep)\" [disabled]=\"disabled\" [class.disabled]=\"disabled\">\n    <span class=\"chevron bottom\"></span>\n    </button>\n    </div>\n    <div *ngIf=\"meridian\" class=\"ngb-tp-spacer\"></div>\n    <div *ngIf=\"meridian\" class=\"ngb-tp-meridian\">\n    <button type=\"button\" class=\"btn btn-default\" [ngClass]=\"setButtonSize()\" [disabled]=\"disabled\" [class.disabled]=\"disabled\" (click)=\"toggleMeridian()\">{{model?.hour >= 12 ? 'PM' : 'AM'}}</button>\n    </div>\n    </div>\n    </fieldset>\n  ",
+  styles: [`
+    .ngb-tp {
+      display: flex;
+      align-items: center;
+    }
+    
+    .ngb-tp-hour, .ngb-tp-minute, .ngb-tp-second, .ngb-tp-meridian {
+      display: block;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
+    }
+    
+    .ngb-tp-spacer {
+      width: 1em;
+      text-align: center;
+    }
+    
+    .chevron::before {
+      border-style: solid;
+      border-width: 0.29em 0.29em 0 0;
+      content: '';
+      display: inline-block;
+      height: 0.69em;
+      left: 0.05em;
+      position: relative;
+      top: 0.15em;
+      transform: rotate(-45deg);
+      -webkit-transform: rotate(-45deg);
+      -ms-transform: rotate(-45deg);
+      vertical-align: middle;
+      width: 0.71em;
+    }
+    .chevron.bottom:before {
+      top: -.3em;
+      -webkit-transform: rotate(135deg);
+      -ms-transform: rotate(135deg);
+      transform: rotate(135deg);
+    }
+    .btn-link {
+      outline: 0;
+    }
+    .btn-link.disabled {
+      cursor: not-allowed;
+      opacity: .65;
+    }
+    input {
+      text-align: center;
+      display: inline-block;
+      width: auto;
+    }
+    `],
+  template: `
+    <fieldset [disabled]=\"disabled\" [class.disabled]=\"disabled\">
+      <div class=\"ngb-tp\">
+        <div class=\"ngb-tp-hour\">
+          <input type=\"text\"
+                 class=\"form-control\"
+                 [ngClass]=\"setFormControlSize()\"
+                 maxlength=\"2\"
+                 size=\"2\"
+                 placeholder=\"HH\"
+                 [value]=\"formatHour(model?.hour)\"
+                 (change)=\"updateHour($event.target.value)\"
+                 [readonly]=\"readonlyInputs\"
+                 [disabled]=\"disabled\"
+                 aria-label=\"Hours\">
+          <div>
+            <button tabIndex=\"-1\"
+                      *ngIf=\"spinners\"
+                      type=\"button\"
+                      class=\"btn-link btn-inc\"
+                      [ngClass]=\"setButtonSize()\"
+                      (click)=\"changeHour(hourStep)\"
+                      [disabled]=\"disabled\"
+                      [class.disabled]=\"disabled\">
+              <span class=\"chevron\"></span>
+            </button>
+            <button tabIndex=\"-1\"
+                    *ngIf=\"spinners\"
+                    type=\"button\"
+                    class=\"btn-link btn-dec\"
+                    [ngClass]=\"setButtonSize()\"
+                    (click)=\"changeHour(-hourStep)\"
+                    [disabled]=\"disabled\"
+                    [class.disabled]=\"disabled\">
+              <span class=\"chevron bottom\"></span>
+            </button>
+          </div>
+        </div>
+        <div class=\"ngb-tp-spacer\">:</div>
+        <div class=\"ngb-tp-minute\">
+          <input type=\"text\"
+                 class=\"form-control\"
+                 [ngClass]=\"setFormControlSize()\"
+                 maxlength=\"2\"
+                 size=\"2\"
+                 placeholder=\"MM\"
+                 [value]=\"formatMinSec(model?.minute)\"
+                 (change)=\"updateMinute($event.target.value)\"
+                 [readonly]=\"readonlyInputs\"
+                 [disabled]=\"disabled\"
+                 aria-label=\"Minutes\">
+          <div>
+            <button tabIndex=\"-1\"
+                    *ngIf=\"spinners\"
+                    type=\"button\"
+                    class=\"btn-link btn-inc\"
+                    [ngClass]=\"setButtonSize()\"
+                    (click)=\"changeMinute(minuteStep)\"
+                    [disabled]=\"disabled\"
+                    [class.disabled]=\"disabled\">
+              <span class=\"chevron\"></span>
+            </button>
+            <button tabIndex=\"-1\"
+                    *ngIf=\"spinners\"
+                    type=\"button\"
+                    class=\"btn-link btn-dec\"
+                    [ngClass]=\"setButtonSize()\"
+                    (click)=\"changeMinute(-minuteStep)\"
+                    [disabled]=\"disabled\"
+                    [class.disabled]=\"disabled\">
+              <span class=\"chevron bottom\"></span>
+            </button>
+          </div>
+        </div>
+        <div *ngIf=\"seconds\" class=\"ngb-tp-spacer\">:</div>
+        <div *ngIf=\"seconds\" class=\"ngb-tp-second\">
+          <input type=\"text\"
+                 class=\"form-control\"
+                 [ngClass]=\"setFormControlSize()\"
+                 maxlength=\"2\"
+                 size=\"2\"
+                 placeholder=\"SS\"
+                 [value]=\"formatMinSec(model?.second)\"
+                 (change)=\"updateSecond($event.target.value)\"
+                 [readonly]=\"readonlyInputs\" [disabled]=\"disabled\"
+                 aria-label=\"Seconds\">
+          <button tabIndex=\"-1\"
+                  *ngIf=\"spinners\"
+                  type=\"button\"
+                  class=\"btn-link btn-inc\"
+                  [ngClass]=\"setButtonSize()\"
+                  (click)=\"changeSecond(secondStep)\"
+                  [disabled]=\"disabled\"
+                  [class.disabled]=\"disabled\">
+            <span class=\"chevron\"></span>
+          </button>
+          <button tabIndex=\"-1\"
+                  *ngIf=\"spinners\"
+                  type=\"button\"
+                  class=\"btn-link btn-dec\"
+                  [ngClass]=\"setButtonSize()\"
+                  (click)=\"changeSecond(-secondStep)\"
+                  [disabled]=\"disabled\"
+                  [class.disabled]=\"disabled\">
+            <span class=\"chevron bottom\"></span>
+          </button>
+        </div>
+        <div *ngIf=\"meridian\" class=\"ngb-tp-spacer\"></div>
+        <div *ngIf=\"meridian\" class=\"ngb-tp-meridian\">
+          <button type=\"button\" class=\"btn btn-default\"
+          [ngClass]=\"setButtonSize()\"
+                  [disabled]=\"disabled\"
+                  [class.disabled]=\"disabled\"
+                  (click)=\"toggleMeridian()\">{{model?.hour >= 12 ? 'PM' : 'AM'}}</button>
+        </div>
+      </div>
+    </fieldset>
+    `,
   providers: [NGB_TIMEPICKER_VALUE_ACCESSOR]
 })
 export class NgbTimepicker implements ControlValueAccessor,
