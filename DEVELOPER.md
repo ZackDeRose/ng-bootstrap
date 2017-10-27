@@ -7,9 +7,13 @@ By Preference:
   + IntelliJ
   + Webstorm
 
+
+
 **Getting the Sources**
 
 Check out of the Clearcase repository.
+
+
 
 **First Time Set Up**
 
@@ -25,6 +29,8 @@ Check out of the Clearcase repository.
     + `npm install -g node-gyp`
     + `npm install -g --production windows-build-tools`
 
+
+
 **Building**
 1. Open a console/command line and navigate to the project directory [where you stored the source files].
 2. Run the command: `mvn clean install`
@@ -35,6 +41,8 @@ Check out of the Clearcase repository.
 > The IntelliJ IDE has Maven Plugins that may be helpful for developers wishing to perform local builds.
 >      
 > See link: https://www.jetbrains.com/help/idea/maven-projects-tool-window.html
+
+
 
 **Developing**
 + After pulling down the source files and performing first-time setup, make sure to run `npm install` to retrieve all development dependencies.
