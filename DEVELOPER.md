@@ -13,9 +13,9 @@ Check out of the Clearcase repository.
 
 **First Time Set Up**
 
-    This document assumes that Maven is properly set up in your environment. For instructions on setting up Maven, please see the provided Maven documents.
-    
-    Official maven site: https://maven.apache.org/
+> This document assumes that Maven is properly set up in your environment. For instructions on setting up Maven, please see the provided Maven documents.
+> 
+> Official maven site: https://maven.apache.org/
 
 1. Install the “Recommended For Most Users” release of Nodejs (available at https://nodejs.org)
 2. Set proxy for npm via: `npm config set proxy http://proxycorp.dteco.com:8080/`
@@ -32,16 +32,15 @@ Check out of the Clearcase repository.
     + This may take some time (3-5 minutes).
 3. You can find your .war file in `[project-directory]/build/dteGUI.war`
 
-     
-     The IntelliJ IDE has Maven Plugins that may be helpful for developers wishing to perform local builds.
-     
-     See link: https://www.jetbrains.com/help/idea/maven-projects-tool-window.html
+> The IntelliJ IDE has Maven Plugins that may be helpful for developers wishing to perform local builds.
+>      
+> See link: https://www.jetbrains.com/help/idea/maven-projects-tool-window.html
 
 **Developing**
 + After pulling down the source files and performing first-time setup, make sure to run `npm install` to retrieve all development dependencies.
 + To run the GUI in development mode, run the command `npm start` and the webpage should be available at `localhost:4787`
 
 
-    Note that in order to receive responses from the GUI facing serves while running a local development build, you will need to edit the proxy.config.json file that can be found in the top level of the source code.
-          
-    Full documentation on creating an Angular Proxy to Backend can be found here: https://github.com/angular/angular-cli/blob/master/docs/documentation/stories/proxy.md
+> Note that in order to receive responses from the GUI facing serves while running a local development build, you will need to edit the proxy.config.json file that can be found in the top level of the source code.
+>       
+> Full documentation on creating an Angular Proxy to Backend can be found here: https://github.com/angular/angular-cli/blob/master/docs/documentation/stories/proxy.md
