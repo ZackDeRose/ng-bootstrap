@@ -37,9 +37,9 @@ Official maven site: https://maven.apache.org/
 
   + src/assets/config.json:
   
-        {
-          "services-location": "/SF_DTE_GUI_Services-1.3.0/"
-        }
+          {
+            "services-location": "/SF_DTE_GUI_Services-1.3.0/"
+          }
       Change the name of the "services-location" field to match the appropriate services release. 
 3. Run the command: `mvn clean install`
     + Note that "mvn" command may be different depending on how Maven is set up on your machine.
